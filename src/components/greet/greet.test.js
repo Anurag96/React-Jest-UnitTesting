@@ -2,7 +2,7 @@ import Greet from './Greet'
 import {render,screen} from '@testing-library/react'
 
 
-describe('Testing Greet rendering',()=>{
+describe('Testing Greet rendering 1',()=>{
     test('greet renders correctly',()=>{
         render(<Greet/>)
         const textValue = screen.getByText(/Hello/i)
@@ -10,10 +10,10 @@ describe('Testing Greet rendering',()=>{
     })
 })
 
-describe('Testing Greet rendering',()=>{
+describe('Testing Greet rendering 2',()=>{
     test('Greet render with name',()=>{
         render(<Greet name='Anurag'/>)
-        const textValue = screen.getByText(/ Hello Anurag/i)
+        const textValue = screen.getByText(/Hello Anurag/i)
         expect(textValue).toBeInTheDocument()
     })
 })
