@@ -1,25 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-
+import {useCounter} from "./useCounter";
+import React from 'react'
+import Greet from "./components/greet/Greet";
 function App() {
+  const {count,increment,decrement } = useCounter()
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Greet name='Anurag'/>
+      <button onClick={increment}>+</button>
+      {count}
+      <button onClick={decrement}>-</button>
     </div>
   );
 }
-
+ 
 export default App;
