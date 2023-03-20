@@ -1,0 +1,156 @@
+.page-content {
+    display: flex;
+    width: 14rem;
+    height: 90%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 15px;
+    margin: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5.5px);
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+
+#grid-container div {
+    /* height: 200px; */
+    flex: 25%;
+}
+
+#grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    /* height: 635px; */
+    background-color: #fff;
+    padding: 30px;
+    gap: 30px;
+}
+
+/********** Card Css Start *********/
+.border-faded {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem;
+}
+
+.flex-row {
+    -webkit-box-orient: horizontal !important;
+    -webkit-box-direction: normal !important;
+    -ms-flex-direction: row !important;
+    flex-direction: row !important;
+}
+
+.d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+
+.align-items-center {
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important;
+}
+
+.mr-3,
+.mx-3 {
+    margin-right: 1rem !important;
+}
+
+.flex-1 {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.info-card-text {
+    font-size: .875rem;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 500;
+    line-height: 1.35;
+    margin-left: 10px;
+}
+
+.card-text {
+    padding: 4px 3px 27px 4px;
+}
+
+/********** Card Css End *********/
+/********** Footer css start *********/
+
+/* @media only screen and (max-width: 992px) .page-wrapper .page-footer {
+    border-top: 1px solid rgba(0, 0, 0, .09);
+} */
+
+.page-wrapper .page-footer {
+    border-top: 1px solid rgba(0, 0, 0, .09);
+}
+
+.page-footer {
+    background: #fff;
+    color: #4d4d4d;
+    height: 2.8125rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background: darkgray;
+    color: #4d4d4d;
+    font-size: .8125rem;
+    padding: 0 2rem;
+    -webkit-box-ordinal-group: 5;
+    -ms-flex-order: 4;
+    order: 4;
+    margin-top: 1rem;
+    box-shadow: 0 -5px 6px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 998;
+}
+
+.fw-700 {
+    font-weight: 700 !important;
+    padding-left: 45%;
+    color: #2b2727;
+}
+
+.card-body {
+    /* flex: 1 1 auto; */
+    /* padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x); */
+    background: ghostwhite;
+}
+/********** Footer css end *********/
+
+.card-icon-size {
+    height: 2rem;
+     width: 2rem;
+     display: inline-block; 
+     margin: 15px 20px ;
+}
+
+.kite-style {
+    background: aliceblue;
+    padding: 30px 10px 30px 20px;
+    /* Include width when then there is just one or two card/s  */
+    width: 550px;  
+
+}
+
+.loader {
+    width: 50%;
+    height: 10%;
+    position: fixed;
+    right: 425px;
+    border-radius: 100% 0 0 0;
+      
+}

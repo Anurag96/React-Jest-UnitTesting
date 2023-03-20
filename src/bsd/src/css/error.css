@@ -1,0 +1,14 @@
+
+.alert {
+    text-align: center;
+    padding-top: 10rem;
+}
+
+.alert p {
+    font-size: 30px;
+}
+
+.alert pre {
+    color: red;
+    font-size: 15px;
+}

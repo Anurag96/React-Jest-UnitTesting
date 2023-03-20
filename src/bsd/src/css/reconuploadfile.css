@@ -1,0 +1,31 @@
+.form {
+    margin-top: 40px;
+}
+
+.viewer {
+    background-color: #e4e4e4;
+    height: auto;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    overflow: hidden;
+    padding: 15px;
+}
+
+#btn {
+    text-align:center
+}
+
+.btn-color {
+    background-color: #008CBA;
+}
+
+.table-responsive {
+    width: 100%;
+}
+
+.form-control:after {
+    content:" *";
+    color: red;
+  }
+  
