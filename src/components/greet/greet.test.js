@@ -12,8 +12,8 @@ describe('Testing Greet rendering 1',()=>{
 
 describe('Testing Greet rendering 2',()=>{
     test('Greet render with name',()=>{
-        render(<Greet name='Anurag'/>)
-        const textValue = screen.getByText(/Hello Anurag/i)
+        render(<Greet name={'Anurag Kumar'}/>)
+        const textValue = screen.getByText(/Hello Anurag Kumar/i)
         expect(textValue).toBeInTheDocument()
     })
 })

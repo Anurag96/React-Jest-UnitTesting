@@ -1,6 +1,7 @@
 import {useCounter} from "./useCounter";
 import React from 'react'
 import Greet from "./components/greet/Greet";
+import Parent from "./components/user/Parent";
 function App() {
   const {count,increment,decrement } = useCounter()
   return (
@@ -9,6 +10,7 @@ function App() {
       <button onClick={increment}>+</button>
       {count}
       <button onClick={decrement}>-</button>
+      <Parent/>
     </div>
   );
 }

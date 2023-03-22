@@ -1,70 +1,129 @@
-# Getting Started with Create React App
+# Jest & React-Testing-Library with React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- To run test case on virtual test dom we require `--env=jsdom`
+- To run the test cases execute `npm run test` Script : jest --env=jsdom
+- To run the test coverage execute `npm run coverage` Script : jest --env=jsdom --coverage
+- Jest helps to find the test folder, run them and return Fail or Pass report output.
+- Usually a test function starts with either test('',()=>{}) || it('',()=>{})
+- The test() takes two parameter : 1. Description of Test 2. Call back function
+- Test() can be written inside the describe
+```
+describe('',()=>{
+    test('',()=>{})
+})
+```
 
-## Available Scripts
+Libraries Required :
+- import { render, screen } from '@testing-library/react'
 
-In the project directory, you can run:
 
-### `npm start`
+## Write a basic Unit Test with/without passing Props
+- welcome.jsx
+```
+function welcome(props) {
+  return (
+    <div>
+      <span>
+      {`Hello ${props.name}`}
+      </span>
+    </div>
+  )
+}
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+export default welcome
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- welcome.test.js
+```
+import {render,screen} from '@testing-library/react'
+import Welcome from './welcome'
 
-### `npm test`
+describe('Test Suite 1',()=>{
+    test('test welcome render',()=>{
+        render(<Welcome/>)                         // without passing Props
+        render(<Welcome name={'Anurag Kumar'}/>)   // with passing Props
+        const textValue = screen.getByText("Hello Anurag Kumar")
+        expect(textValue).toBeInTheDocument()
+    })
+})
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Thinks to remember :
+- Test suite can be written inside the describe
+- Test suite can be written inside the it/test
+- The component which is being tested has to be imported never be mocked.
+- @testing-library/react provide 1.Render 2.Screen 
+- Jest provide 1.mock() function 2.expect() function .
+- Mock all the component imported inside the component for which test is being written to being with.
 
-### `npm run build`
+## how to mock 
+- Library mocking 
+```
+const mockFn = jest.fn()
+jest.mock('react-router-dom', () => ({
+    useNavigate: () => mockFn,
+}));
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+jest.mock('react-redux', () => ({
+    useDispatch: () => mockFn,
+}));
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+- Redux mocking 
+```
+jest.mock('../../redux/loadingSlice', () => ({
+    storeIsLoading: () => mockFn,
+}));
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+- Mocking Component 
+``` 
+jest.mock("./appCard") 
+```
 
-### `npm run eject`
+## Check is Child is loading in Parent [Reference Doc](https://dev.to/peterlidee/how-to-test-a-component-passed-as-prop-with-jest-4pgn)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Parent.jsx
+```
+import React from 'react'
+import Child from './Child'
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+function Parent() {
+    
+       return (
+        <>
+            <div>Parent Component</div>
+            <Child />
+        </>
+    )
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+export default Parent
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
 
-## Learn More
+- Child.jsx
+```
+export default function Child(){
+    return(
+      <>
+        <div>component Child</div>
+      </>
+    )
+  }
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Parent.test.jsx
+```
+import {screen,render} from '@testing-library/react'
+import Parent from './Parent'
+import Child from  './Child'
+jest.mock('./Child.js')
+Child.mockImplementation(props => props.user) // for mocking any props
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+test('Child mock was called',()=>{
+    render(<Parent/>)
+    expect(Child).toHaveBeenCalled()
+})
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
