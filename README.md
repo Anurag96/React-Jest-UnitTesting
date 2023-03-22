@@ -81,33 +81,45 @@ jest.mock('../../redux/loadingSlice', () => ({
 jest.mock("./appCard") 
 ```
 
-## Check is Child is loading in Parent [Reference Doc](https://dev.to/peterlidee/how-to-test-a-component-passed-as-prop-with-jest-4pgn)
+## 1. Check is Parent if Child is loading 
+[Reference Doc](https://dev.to/peterlidee/how-to-test-a-component-passed-as-prop-with-jest-4pgn)
 
 - Parent.jsx
 ```
-import React from 'react'
 import Child from './Child'
+import User from './User'
 
-function Parent() {
-    
-       return (
-        <>
-            <div>Parent Component</div>
-            <Child />
-        </>
-    )
+export default function Parent(){
+  const user = <User name="Peter" />
+  return(
+    <>
+      <div>component Parent</div>
+      <Child user={user} />
+    </>
+  )
 }
 
-export default Parent
+```
+- User.jsx
 
+```
+export default function User({ name }){
+  return(
+    <>
+      <div>component User</div>
+      <div>name: {name}</div>
+    </>
+  )
+}
 ```
 
 - Child.jsx
 ```
-export default function Child(){
+export default function Child(props){
     return(
       <>
         <div>component Child</div>
+        {props.user}
       </>
     )
   }
@@ -126,4 +138,109 @@ test('Child mock was called',()=>{
     expect(Child).toHaveBeenCalled()
 })
 
+```
+
+## 2. Check in Parent if text is present
+
+### Example 1
+
+- Welcome.jsx
+```
+function welcome(props) {
+  return (
+    <div>
+      <span>
+      {`Hello ${props.name}`}
+      </span>
+    </div>
+  )
+}
+
+export default welcome
+```
+
+- Welcome.test.jsx
+```
+test('test welcome render',()=>{
+        render(<Welcome/>)
+        render(<Welcome name={'Anurag Kumar'}/>)
+        const textValue = screen.getByText("Hello Anurag Kumar")
+        expect(textValue).toBeInTheDocument()
+    })
+
+```
+
+### Example 2
+- appCard.jsx
+```
+function appCard(props) {
+  return (
+    <div>
+      <div className="mx-3 my-3">{props.data.title} </div>
+      <div className="mx-3 my-3">{props.data.subTitle} </div>
+      <div className="mx-3 my-3">{props.data.description} </div>
+    </div>
+  )
+}
+
+export default welcome
+```
+
+- appCard.test.jsx
+```
+import { render, screen } from '@testing-library/react'
+import AppCard from './appCard';
+const data = {
+        title: 'test title',
+        subTitle: 'test subTitle',
+        description: 'test description',
+}
+
+    it('Test Rendering of AppCard',()=>{
+        render(<AppCard data={data} />)
+        expect(screen.getByText('test title')).toBeInTheDocument()
+    })
+
+```
+
+## 3. Testing Hooks useState in Parent
+
+- useCounter.jsx
+```
+import React, {useState} from 'react'
+
+export const useCounter = ()=> {
+    
+    const [count, setCount] =  useState(0)
+    const increment = ()=>{
+    setCount(count+1)
+    }
+    const decrement = ()=>{
+      setCount(count-1)
+    }
+      return {count,increment,decrement}
+}
+```
+
+- useCounter.test.jsx
+
+```
+import { useCounter } from './useCounter'
+import { act, renderHook } from '@testing-library/react-hooks'
+
+describe('Increment', () => {
+    it('increment acount by 1', () => {
+        const { result } = renderHook(useCounter)
+
+        act(() => {
+            result.current.increment()
+        })
+
+        expect(result.current.count).toBe(1)
+        act(() => {
+            result.current.decrement()
+        })
+        expect(result.current.count).toBe(0)
+    })
+})
 ```
