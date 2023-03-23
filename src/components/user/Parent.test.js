@@ -1,14 +1,15 @@
 import {screen,render} from '@testing-library/react'
 import Parent from './Parent'
+
 import Child from  './Child'
 jest.mock('./Child.js')
-
-jest.mock('./User.js')
-jest.mock('./SubChild.js')
-import User from   './User'
 Child.mockImplementation(props => props.user)
 
+jest.mock('./User.js')
+import User from   './User'
+
 import SubChild from './SubChild'
+// SubChild.mockImplementation(props => props.name)
 jest.mock('./SubChild.js')
 
 test('Render Parent Text Test Suite',()=>{
@@ -21,9 +22,12 @@ test('Child mock was called',()=>{
     render(<Parent/>)
     expect(Child).toHaveBeenCalled()
 })
-test('Child mock was called',()=>{
-    render(<Parent/>)
+
+test('SubChild mock was called',()=>{
+    // render(<Parent name='Anurag'/>)
+    render(<SubChild name='Anurag'/>)
     expect(SubChild).toHaveBeenCalled()
+    // expect(screen.getByText(/SubComponent is used by Anurag/i)).toBeInTheDocument();
 })
 
 // test('User mock was called', () => {

@@ -4,13 +4,15 @@ import SubChild from './SubChild'
 import User from './User'
 
 function Parent() {
-    
+       const data = {
+        name:'Anurag'
+       }
     const user = <User name={"Anurag"} />
     return (
         <>
             <div>Parent Component</div>
             <Child user={user} />
-            <SubChild/>
+            <SubChild name={data.name}/>
 
         </>
     )

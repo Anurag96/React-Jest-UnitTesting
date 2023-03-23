@@ -1,9 +1,8 @@
 import React from 'react'
-
-function SubChild() {
+function SubChild(props) {
   return (
     <div>
-      SubComponent
+      {`SubComponent is used by ${props.name} `}
     </div>
   )
 }
