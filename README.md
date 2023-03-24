@@ -247,6 +247,8 @@ describe('Increment', () => {
 
 ## 4. Testing Parent data rending as props in Child
 
+[Reference Doc ](https://dev.to/peterlidee/mocking-react-components-jest-mocking-react-part-2-2l8j)
+
 Parent.js
 
 ```
