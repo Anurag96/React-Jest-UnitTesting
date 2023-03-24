@@ -3,6 +3,7 @@ import React from 'react'
 import Greet from "./components/greet/Greet";
 import Parent from "./components/user/Parent";
 import ParentComponent from "./components/mock/ParentComponent";
+import Parent1 from "./components/mytest/Parent";
 function App() {
   const { count, increment, decrement } = useCounter()
   return (
@@ -17,6 +18,7 @@ function App() {
       <hr/>
       <div>
         <ParentComponent/>
+        <Parent1/>
       </div>
     </>
   );
