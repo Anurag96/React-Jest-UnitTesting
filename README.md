@@ -244,3 +244,80 @@ describe('Increment', () => {
     })
 })
 ```
+
+## 4. Testing Parent data rending as props in Child
+
+Parent.js
+
+```
+import React from 'react'
+import Child from './Child'
+function Parent() {
+  const mydata = {
+    message: 'Hello'
+  }
+  return (
+    <div className="ParentComponent">
+      <div>Parent Component</div>
+      {/* <Child message={'Hello'}/> */}
+      {/* {Child(message:'Hello')} */}
+      {Child(mydata)}
+    </div>
+  )
+}
+
+export default Parent
+
+```
+
+Child.js
+
+```
+import React from 'react'
+
+function Child(props) {
+  return (
+    <>
+      {/* {`Hello ${props.name}`} */}
+      <div className="ChildComponent">
+        {`Child component 
+      ${props.message}
+      `}
+      </div>
+    </>
+  )
+}
+
+export default Child
+```
+
+Parent.test.js
+
+```
+import { render, screen } from '@testing-library/react'
+import Parent from './Parent'
+import Child from './Child'
+jest.mock('./Child.js')
+
+
+test('See father has text', () => {
+    render(<Parent />)
+    expect(screen.getByText(/Parent Component/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Child Component/i)).not.toBeInTheDocument()
+})
+
+test('See child is called in father', () => {
+    render(<Parent />)
+    expect(Child).toHaveBeenCalled()
+    expect(Child.mock.calls).toHaveLength(1)
+    
+    screen.debug()
+    
+    expect(Child).toHaveBeenCalledWith(
+      expect.objectContaining({
+        message: "Hello"
+    })),
+        expect.anything()
+})
+
+```

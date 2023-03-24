@@ -15,8 +15,9 @@ test('See father has text', () => {
 
 test('When searching data in child, avoid mocking of child', () => {
     render(<Parent />)
-    screen.debug()
+    // screen.debug()
     expect(screen.queryByText(/Child Component/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Child component Hello/i)).toBeInTheDocument()
 })
 
 
