@@ -3,7 +3,7 @@ import WrapperComponent from './WrapperComponent'
 function ParentComponent(){
   return(
     <div className="ParentComponent">
-        <a href="https://dev.to/peterlidee/returning-values-from-mocks-jest-mocking-react-part-3-3lfn">Reference Doc</a> 
+        <a href="https://dev.to/peterlidee/returning-values-from-mocks-jest-mocking-react-part-3-3lfn">Reference Doc</a> <br/>
       <div>Parent Component</div>
       <WrapperComponent>
         <div>Textblock 1.</div>
