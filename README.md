@@ -323,3 +323,54 @@ test('See child is called in father', () => {
 })
 
 ```
+
+## 5. Mocking useNagivate of React-Router-Dom to verify path
+
+[Reference Link](https://github.com/testing-library/react-hooks-testing-library/issues/588)
+
+home.js
+```
+import { useNavigate } from 'react-router-dom';
+
+const useHome = () => {
+
+  const navigate = useNavigate();
+
+  const handleClientChange = () => { navigate(`/home`);};
+
+
+  return {
+    handleClientChange
+  };
+};
+
+
+export default useHome
+```
+
+home.test.js
+```
+import useHome from './HomeButton'
+import { screen, render } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react-hooks'
+
+//Mocking the useNavigate from React-Router-Domr
+
+const mockedNavigator = jest.fn();
+jest.mock("react-router-dom", () => ({
+    ...(jest.requireActual("react-router-dom")),
+    useNavigate: () => mockedNavigator,
+}));
+
+it('should  navigate to a new client page', () => {
+    const { result } = renderHook(() => useHome());
+
+    act(() => {
+        result.current.handleClientChange();
+    });
+
+    expect(mockedNavigator).toHaveBeenCalled();
+    expect(mockedNavigator).toHaveBeenCalledWith('/home')
+});
+
+```
