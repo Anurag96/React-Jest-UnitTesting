@@ -1,16 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-const useHome = () => {
+const HomeButton = () => {
 
   const navigate = useNavigate();
 
   const handleClientChange = () => { navigate(`/home`);};
 
-
-  return {
+  return (
     handleClientChange
-  };
+  );
 };
 
-
-export default useHome
+export default HomeButton

@@ -324,7 +324,7 @@ test('See child is called in father', () => {
 
 ```
 
-## 5. Mocking useNagivate of React-Router-Dom to verify path
+## 5. Mocking useNagivate of React-Router-Dom to verify path, using `act`, `renderHook` from '@testing-library/react-hooks
 
 [Reference Link](https://github.com/testing-library/react-hooks-testing-library/issues/588)
 
@@ -373,4 +373,58 @@ it('should  navigate to a new client page', () => {
     expect(mockedNavigator).toHaveBeenCalledWith('/home')
 });
 
+```
+
+## 5. Mocking useNagivate of React-Router-Dom to verify path, using `screen`, `render` using getAllByRole
+
+header.js
+```
+import { useNavigate } from 'react-router-dom';
+
+const useHome = () => {
+
+  const navigate = useNavigate();
+
+  const navigateHome = () => { navigate(`/`);};
+
+
+  return {
+                        <div className="menu" >
+                        <li onClick={navigateHome} className="home-link">
+                            <Button
+                                fill="white"
+                                icon="ki-home-f"
+                                title="HOME"
+                                inline="true"
+                                size="3rem"
+                            />
+                        </li>
+                    </div>
+  };
+};
+
+
+export default useHome
+```
+
+header.test.js
+```
+import Header from './header'
+import { screen, render } from '@testing-library/react'
+describe('Header has been rendered',()=>{
+   
+    it('Test validate navigate called from navigateHome method',()=>{
+        render(<Header onChange={mockFn} />)
+        const homeIcon = screen.getAllByRole('listitem').find(listitem =>listitem.className === "home-link");
+        homeIcon.click();
+        expect(mockFn).toHaveBeenCalled();
+        expect(mockFn).toHaveBeenCalledWith('/')
+    })
+})
+```
+
+- For your specific query I'd suggest [Reference](https://stackoverflow.com/questions/63033144/unable-to-use-getbyrole-on-listitem-with-a-specific-name-rtl)
+
+```
+screen.getAllByRole('listitem').find(listitem =>listitem.className === "home-link");
 ```
