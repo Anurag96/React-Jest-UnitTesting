@@ -375,7 +375,7 @@ it('should  navigate to a new client page', () => {
 
 ```
 
-## 5. Mocking useNagivate of React-Router-Dom to verify path, using `screen`, `render` using getAllByRole
+## 6. Mocking useNagivate of React-Router-Dom to verify path, using `screen`, `render` from @testing-library/react by `getAllByRole`
 
 header.js
 ```
